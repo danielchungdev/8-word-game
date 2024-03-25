@@ -5,8 +5,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Tiktok word game",
-  description: "TikTok word game",
+  title: "Word Association Game",
+  description: "Word association",
 };
 
 export default function RootLayout({

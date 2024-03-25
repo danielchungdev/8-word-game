@@ -4,5 +4,5 @@
 
 
 body{
-  @apply bg-amber-50;
+  @apply bg-neutral-100 text-neutral-900;
 }
