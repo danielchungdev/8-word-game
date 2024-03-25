@@ -53,7 +53,7 @@ export const StatsPage: FC<StatsPageProps> = ({ todayTries, totalTries, totalCom
                 <p className="mt-4">You&apos;ve completed a total of <b>{totalCompleted}</b> word associations with an average of <b>{calculateAverage() || 0}</b> wrong guesses per attempt.</p>
             </div>
             <hr className="h-px my-4 w-48 mx-auto bg-gray-200 border-0" />
-            <p className="text-sm">New Challenge in: {timeLeft.hours} hours {timeLeft.minutes} minutes {timeLeft.seconds} seconds</p>
+            <p className="text-sm">New Challenge: {timeLeft.hours} hours {timeLeft.minutes} minutes {timeLeft.seconds} seconds</p>
             <Footer />
         </>
     );
