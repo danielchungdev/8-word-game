@@ -41,7 +41,7 @@ export const Keyboard: FC<Keyboard> = ({ onKeyPress }) => {
                 <button
                     key={key}
                     onClick={() => onKeyPress(key.toLowerCase())}
-                    className="h-14 w-9 bg-neutral-200 rounded font-bold"
+                    className="h-14 w-[2.1rem] bg-neutral-200 rounded font-bold"
                 >
                     {key.toUpperCase()}
                 </button>
@@ -50,7 +50,7 @@ export const Keyboard: FC<Keyboard> = ({ onKeyPress }) => {
     }
 
     return (
-        <div className="grid place-content-center gap-2">
+        <div className="grid place-content-center gap-2 m-auto">
             {rows.map((row, rowIndex) => (
                 <div key={rowIndex} className={`flex gap-2 ${rowIndex < 2 ? "m-auto" : ""}`}>
                     {row.map((key) => (

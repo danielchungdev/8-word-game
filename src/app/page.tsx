@@ -263,7 +263,7 @@ export default function Home() {
     <>
       <main className="grid place-content-center mt-4">
         <Navbar />
-        <div className="flex flex-col gap-2 my-8">
+        <div className="flex flex-col gap-2 my-8 mx-auto">
           {Array.from({ length: 5 }, (_, index) =>
             <TileRow key={index} word={wordState[index]} animate={tileRowControls[index]} correct={correctState[index]} />
           )}

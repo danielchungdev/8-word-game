@@ -1,8 +1,8 @@
 
 export const WORDLIST = [ 
-    ["out", "side", "profile", "picture", "perfect"],
+    ["key", "pad", "lock", "down", "stream"],
+    ["rain", "water", "proof", "read", "mission"], 
     ["hind", "quarter", "life", "time", "zone"], 
     ["master", "mind", "set", "out", "spoken"], 
-    ["rain", "water", "proof", "read", "mission"], 
-    ["key", "pad", "lock", "down", "stream"], 
+    ["out", "side", "profile", "picture", "perfect"],
 ]

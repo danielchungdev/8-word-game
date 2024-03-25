@@ -52,7 +52,7 @@ export const Modal: FC<ModalProps> = ({ isOpen, onClose, children, unclosable = 
                             </motion.button>
                         }
 
-                        <div className=" p-6 w-[26rem]">
+                        <div className=" p-6 w-[23rem]">
                             {children}
                         </div>
                     </motion.div>
