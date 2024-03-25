@@ -1,5 +1,6 @@
 // VirtualKeyboard.tsx
 import { FC } from "react";
+import Image from "next/image";
 
 interface Keyboard {
     onKeyPress: (key: string) => void;
@@ -31,7 +32,7 @@ export const Keyboard: FC<Keyboard> = ({ onKeyPress }) => {
                 onClick={() => onKeyPress("Backspace")}
                 className="h-14 w-[57px] bg-neutral-200 rounded font-bold"
             >
-                <img className="w-8 m-auto" src={"/icons/backspace.svg"} alt="backspace"/>
+                <Image className="m-auto" width={24} height={24} src={"/icons/backspace.svg"} alt="backspace"/>
             </button>
             )
         }

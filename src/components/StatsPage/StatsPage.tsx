@@ -1,5 +1,6 @@
-import { FC, useState, useEffect } from "react"
-import { Footer } from "@/components/Footer"
+import { FC, useState, useEffect } from "react";
+import { Footer } from "@/components/Footer";
+import Image from 'next/image';
 
 interface StatsPageProps {
     todayTries: number,
@@ -41,19 +42,19 @@ export const StatsPage: FC<StatsPageProps> = ({ todayTries, totalTries, totalCom
     }, []);
 
     const calculateAverage = () => {
-        return totalTries / totalCompleted
-    }
+        return totalTries / totalCompleted;
+    };
 
     return (
         <>
             <p className="text-xl font-bold">Congratulations!</p>
             <div className="text-sm ">
-                <p className="mt-4">You've completed today's challenge, you made a total of <b>{todayTries}</b> wrong guesses.</p>
-                <p className="mt-4">You've completed a total of <b>{totalCompleted}</b> word associations with an average of <b>{calculateAverage() || 0}</b> wrong guesses per attempt.</p>
+                <p className="mt-4">You&apos;ve completed today&apos;s challenge, you made a total of <b>{todayTries}</b> wrong guesses.</p>
+                <p className="mt-4">You&apos;ve completed a total of <b>{totalCompleted}</b> word associations with an average of <b>{calculateAverage() || 0}</b> wrong guesses per attempt.</p>
             </div>
             <hr className="h-px my-4 w-48 mx-auto bg-gray-200 border-0" />
             <p className="text-sm">New Challenge in: {timeLeft.hours} hours {timeLeft.minutes} minutes {timeLeft.seconds} seconds</p>
             <Footer />
         </>
-    )
-}
+    );
+};

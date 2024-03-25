@@ -151,23 +151,6 @@ export default function Home() {
     }
   };
 
-  const handleKeyPress = (event: any) => {
-    let keyPressed: string = event.key;
-    if (currentRow < 5) {
-      if (isLetter(keyPressed)) {
-        fillTile(keyPressed);
-      }
-
-      if (event.key === "Backspace") {
-        clearTile(currentWordIndex);
-      }
-
-      if (event.key === "Enter") {
-        checkSubmission();
-      }
-    }
-  };
-
   const formatDate = (date: Date) => {
     const day = String(date.getUTCDate()).padStart(2, '0');
     const month = String(date.getUTCMonth() + 1).padStart(2, '0');
@@ -180,6 +163,23 @@ export default function Home() {
   };
 
   useEffect(() => {
+    const handleKeyPress = (event: any) => {
+      let keyPressed: string = event.key;
+      if (currentRow < 5) {
+        if (isLetter(keyPressed)) {
+          fillTile(keyPressed);
+        }
+
+        if (event.key === "Backspace") {
+          clearTile(currentWordIndex);
+        }
+
+        if (event.key === "Enter") {
+          checkSubmission();
+        }
+      }
+    };
+
     document.addEventListener("keydown", handleKeyPress);
     return () => {
       document.removeEventListener("keydown", handleKeyPress);
