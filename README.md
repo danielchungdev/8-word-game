@@ -4,3 +4,8 @@ Work in progess. Yes, in theory you could cheat and find the wordlist inside of 
 
 
 Have fun!
+
+
+LOG: 
+- MVP (done working locally)
+- Deploying and testing (currently)
