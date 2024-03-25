@@ -47,7 +47,7 @@ export const StatsPage: FC<StatsPageProps> = ({ todayTries, totalTries, totalCom
 
     return (
         <>
-            <p className="text-xl font-bold text-green-500">Congratulations!</p>
+            <p className="text-xl font-bold text-green-500 text-center">Congratulations!</p>
             <div className="text-sm ">
                 <p className="mt-4">You&apos;ve completed today&apos;s challenge, you made a total of <b>{todayTries}</b> wrong guesses.</p>
                 <p className="mt-4">You&apos;ve completed a total of <b>{totalCompleted}</b> word associations with an average of <b>{calculateAverage() || 0}</b> wrong guesses per attempt.</p>
