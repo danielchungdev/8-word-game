@@ -29,6 +29,7 @@ export default function Home() {
   const [words, setWords] = useState<string[]>(WORDLIST[currentDay]);
   const [currentRow, setCurrentRow] = useState<number>(1);
   const [currentWordIndex, setCurrentWordIndex] = useState<number>(1);
+
   const [wordState, setWordState] = useState<any>({
     0: words[0].split(""),
     1: [words[1][0], ...Array(words[1].length - 1).fill("")],
@@ -260,7 +261,7 @@ export default function Home() {
 
   useEffect(() => {
     loadSavedAttempt(); // Load saved attempt on component mount
-  }, [loadSavedAttempt]);
+  }, []);
 
   useEffect(() => {
     //Load stats if exist
