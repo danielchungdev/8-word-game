@@ -76,6 +76,35 @@ export default function Home() {
     }
   };
 
+  const saveCurrentAttempt = () => {
+    const currentAttempt = {
+      wordState: wordState,
+      tries: tries,
+      currentRow: currentRow,
+      currentWordIndex: currentWordIndex,
+      correctState: correctState,
+    };
+  
+    localStorage.setItem('word-association-current-attempt', JSON.stringify(currentAttempt));
+  };
+  
+  const loadSavedAttempt = () => {
+    const savedAttempt = localStorage.getItem('word-association-current-attempt');
+    if (savedAttempt) {
+      const parsedAttempt = JSON.parse(savedAttempt);
+      setWordState(parsedAttempt.wordState);
+      setTries(parsedAttempt.tries);
+      setCurrentRow(parsedAttempt.currentRow);
+      setCurrentWordIndex(parsedAttempt.currentWordIndex);
+      setCorrectState(parsedAttempt.correctState);
+    }
+  };
+  
+  const clearSavedAttempt = () => {
+    console.log("cleaning localstore")
+    localStorage.removeItem('word-association-current-attempt');
+  };
+
   const clearTile = (index: number) => {
     let currentWordArray = [...wordState[currentRow]];
     let deleteAt = index - 1;
@@ -109,6 +138,7 @@ export default function Home() {
         let correct = [...correctState];
         correct[currentRow] = true;
         setCorrectState(correct);
+        saveCurrentAttempt();
         if (currentRow === 4) {
           // Game finished successfully
           setShowFinished(true);
@@ -128,6 +158,8 @@ export default function Home() {
           };
           localStorage.setItem('word-association-stats', JSON.stringify(updatedData));
           setStats(updatedData);
+          localStorage.removeItem('word-association-current-attempt');
+          console.log("finished cleaning")
         }
       } else {
         // Incorrect submission
@@ -137,6 +169,9 @@ export default function Home() {
         });
         setTries((tries) => tries + 1);
       }
+    }
+    else{
+      saveCurrentAttempt();
     }
   };
 
@@ -172,11 +207,9 @@ export default function Home() {
         if (isLetter(keyPressed)) {
           fillTile(keyPressed);
         }
-
         if (event.key === "Backspace") {
           clearTile(currentWordIndex);
         }
-
         if (event.key === "Enter") {
           checkSubmission();
         }
@@ -188,6 +221,10 @@ export default function Home() {
       document.removeEventListener("keydown", handleKeyPress);
     };
   }, [currentRow, currentWordIndex, wordState]);
+
+  useEffect( () => {
+    loadSavedAttempt(); // Load saved attempt on component mount
+  }, [])
 
   useEffect(() => {
     //Load stats if exist
@@ -205,7 +242,6 @@ export default function Home() {
     }
   }, [currentDay]);
 
-
   useEffect(() => {
     const checkTime = () => {
       const today = new Date();
@@ -214,9 +250,10 @@ export default function Home() {
       setCurrentDay(daysDifference)  
     };
     checkTime();
-
+    
     const seconds = 10 
     setInterval(checkTime, seconds * 1000);
+    
   }, []);
 
   useEffect(() => {
@@ -226,7 +263,8 @@ export default function Home() {
   }, [currentDay]);
 
   useEffect(() => {
-    if (words) {
+    if (words && localStorage.getItem('word-association-stats') === undefined) {
+      console.log("here")
       setWordState({
         0: words[0].split(""),
         1: [words[1][0], ...Array(words[1].length - 1).fill("")],
