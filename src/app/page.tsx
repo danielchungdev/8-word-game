@@ -1,6 +1,6 @@
 "use client";
 import { TileRow } from "@/components/TileRow";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useAnimation } from "framer-motion";
 import { Navbar } from "@/components/Navbar";
 import { Keyboard } from "@/components/Keyboard";
@@ -46,9 +46,11 @@ export default function Home() {
   })
   const [showInstructions, setShowInstructions] = useState<boolean>(stats.showTutorial)
   const [showFinished, setShowFinished] = useState<boolean>(stats.completedToday)
-  const startDate = new Date("03-26-2024");
-  startDate.setUTCHours(0, 0, 0, 0);
-
+  const startDate = useMemo(() => {
+    const date = new Date("03-26-2024");
+    date.setUTCHours(0, 0, 0, 0);
+    return date;
+  }, []);
 
   const closeInstructions = () => {
     setShowInstructions(false)
@@ -78,6 +80,7 @@ export default function Home() {
 
   const saveCurrentAttempt = () => {
     const currentAttempt = {
+      date: new Date(),
       wordState: wordState,
       tries: tries,
       currentRow: currentRow,
@@ -92,11 +95,20 @@ export default function Home() {
     const savedAttempt = localStorage.getItem('word-association-current-attempt');
     if (savedAttempt) {
       const parsedAttempt = JSON.parse(savedAttempt);
-      setWordState(parsedAttempt.wordState);
-      setTries(parsedAttempt.tries);
-      setCurrentRow(parsedAttempt.currentRow);
-      setCurrentWordIndex(parsedAttempt.currentWordIndex);
-      setCorrectState(parsedAttempt.correctState);
+      const today = new Date(parsedAttempt.date)
+      const timeDifference = today.getTime() - startDate.getTime();
+      const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+      
+      if (daysDifference < 1){
+        setWordState(parsedAttempt.wordState);
+        setTries(parsedAttempt.tries);
+        setCurrentRow(parsedAttempt.currentRow);
+        setCurrentWordIndex(parsedAttempt.currentWordIndex);
+        setCorrectState(parsedAttempt.correctState);
+      }
+      else{
+        clearSavedAttempt()
+      }
     }
   };
   
@@ -176,6 +188,7 @@ export default function Home() {
   };
 
   const handleKeyboardPress = (key: string) => {
+    console.log("here")
     if (isLetter(key)) {
       fillTile(key);
     }
@@ -220,11 +233,11 @@ export default function Home() {
     return () => {
       document.removeEventListener("keydown", handleKeyPress);
     };
-  }, [currentRow, currentWordIndex, wordState]);
+  }, [currentRow, currentWordIndex, wordState, fillTile, clearTile, checkSubmission]);
 
   useEffect( () => {
     loadSavedAttempt(); // Load saved attempt on component mount
-  }, [])
+  }, [loadSavedAttempt])
 
   useEffect(() => {
     //Load stats if exist
@@ -251,10 +264,10 @@ export default function Home() {
     };
     checkTime();
     
-    const seconds = 10 
+    const seconds = 60 
     setInterval(checkTime, seconds * 1000);
     
-  }, []);
+  }, [startDate]);
 
   useEffect(() => {
     //TODO: CURRENTLY ARE LIMITED IT DOES FOLLOW ORDER.
@@ -263,8 +276,7 @@ export default function Home() {
   }, [currentDay]);
 
   useEffect(() => {
-    if (words && localStorage.getItem('word-association-stats') === undefined) {
-      console.log("here")
+    if (words && !localStorage.getItem('word-association-current-attempt')) {
       setWordState({
         0: words[0].split(""),
         1: [words[1][0], ...Array(words[1].length - 1).fill("")],
