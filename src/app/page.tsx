@@ -46,6 +46,9 @@ export default function Home() {
   })
   const [showInstructions, setShowInstructions] = useState<boolean>(stats.showTutorial)
   const [showFinished, setShowFinished] = useState<boolean>(stats.completedToday)
+  const startDate = new Date("03-26-2024");
+  startDate.setUTCHours(0, 0, 0, 0);
+
 
   const closeInstructions = () => {
     setShowInstructions(false)
@@ -200,30 +203,20 @@ export default function Home() {
         completedToday: lastDate === formatDate(new Date()),
       });
     }
-  }, []);
+  }, [currentDay]);
+
 
   useEffect(() => {
-    const checkCurrentHour = () => {
-      const currentTime = new Date().toUTCString();
-      const currentHour = new Date(currentTime).getUTCHours();
-
-      if (currentHour === 0) {
-        console.log("It's 12:00 AM UTC");
-        setCurrentDay((currentDay) => currentDay + 1)
-      }
+    const checkTime = () => {
+      const today = new Date();
+      const timeDifference = today.getTime() - startDate.getTime();
+      const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+      setCurrentDay(daysDifference)  
     };
+    checkTime();
 
-    const currentTime = new Date();
-    const timeToNextDay = new Date(
-      currentTime.getUTCFullYear(),
-      currentTime.getUTCMonth(),
-      currentTime.getUTCDate() + 1,
-      0, 0, 0, 0
-    ).getTime() - currentTime.getTime();
-
-    const intervalId = setInterval(checkCurrentHour, timeToNextDay);
-
-    return () => clearInterval(intervalId);
+    const seconds = 10 
+    setInterval(checkTime, seconds * 1000);
   }, []);
 
   useEffect(() => {
