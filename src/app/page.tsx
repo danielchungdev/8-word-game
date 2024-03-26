@@ -11,15 +11,15 @@ import { Footer } from "@/components/Footer/Footer";
 import { WORDLIST } from "@/utils/wordlist";
 
 interface History {
-  date: string,
-  tries: number
+  date: string;
+  tries: number;
 }
 interface Stats {
-  totalTries: number,
-  totalCompleted: number,
-  history: History[],
-  showTutorial: boolean,
-  completedToday: boolean,
+  totalTries: number;
+  totalCompleted: number;
+  history: History[];
+  showTutorial: boolean;
+  completedToday: boolean;
 }
 
 //TODO: Move code logic to separate hooks to shrink this file down.
@@ -36,25 +36,35 @@ export default function Home() {
     3: [words[3][0], ...Array(words[3].length - 1).fill("")],
     4: [words[4][0], ...Array(words[4].length - 1).fill("")],
   });
-  const [correctState, setCorrectState] = useState<boolean[]>([true, false, false, false, false])
+  const [correctState, setCorrectState] = useState<boolean[]>([
+    true,
+    false,
+    false,
+    false,
+    false,
+  ]);
   const [stats, setStats] = useState<Stats>({
     totalTries: 0,
     totalCompleted: 0,
     history: [],
     showTutorial: true,
-    completedToday: false
-  })
-  const [showInstructions, setShowInstructions] = useState<boolean>(stats.showTutorial)
-  const [showFinished, setShowFinished] = useState<boolean>(stats.completedToday)
+    completedToday: false,
+  });
+  const [showInstructions, setShowInstructions] = useState<boolean>(
+    stats.showTutorial,
+  );
+  const [showFinished, setShowFinished] = useState<boolean>(
+    stats.completedToday,
+  );
   const startDate = useMemo(() => {
-    const date = new Date("03-26-2024");
+    const date = new Date(2024, 2, 26);
     date.setUTCHours(0, 0, 0, 0);
     return date;
   }, []);
 
   const closeInstructions = () => {
-    setShowInstructions(false)
-  }
+    setShowInstructions(false);
+  };
 
   const tileRowControls = [
     useAnimation(),
@@ -87,34 +97,38 @@ export default function Home() {
       currentWordIndex: currentWordIndex,
       correctState: correctState,
     };
-  
-    localStorage.setItem('word-association-current-attempt', JSON.stringify(currentAttempt));
+
+    localStorage.setItem(
+      "word-association-current-attempt",
+      JSON.stringify(currentAttempt),
+    );
   };
-  
+
   const loadSavedAttempt = () => {
-    const savedAttempt = localStorage.getItem('word-association-current-attempt');
+    const savedAttempt = localStorage.getItem(
+      "word-association-current-attempt",
+    );
     if (savedAttempt) {
       const parsedAttempt = JSON.parse(savedAttempt);
-      const today = new Date(parsedAttempt.date)
+      const today = new Date(parsedAttempt.date);
       const timeDifference = today.getTime() - startDate.getTime();
       const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-      
-      if (daysDifference < 1){
+
+      if (daysDifference < 1) {
         setWordState(parsedAttempt.wordState);
         setTries(parsedAttempt.tries);
         setCurrentRow(parsedAttempt.currentRow);
         setCurrentWordIndex(parsedAttempt.currentWordIndex);
         setCorrectState(parsedAttempt.correctState);
-      }
-      else{
-        clearSavedAttempt()
+      } else {
+        clearSavedAttempt();
       }
     }
   };
-  
+
   const clearSavedAttempt = () => {
-    console.log("cleaning localstore")
-    localStorage.removeItem('word-association-current-attempt');
+    console.log("cleaning localstore");
+    localStorage.removeItem("word-association-current-attempt");
   };
 
   const clearTile = (index: number) => {
@@ -168,10 +182,13 @@ export default function Home() {
             showTutorial: false,
             completedToday: true,
           };
-          localStorage.setItem('word-association-stats', JSON.stringify(updatedData));
+          localStorage.setItem(
+            "word-association-stats",
+            JSON.stringify(updatedData),
+          );
           setStats(updatedData);
-          localStorage.removeItem('word-association-current-attempt');
-          console.log("finished cleaning")
+          localStorage.removeItem("word-association-current-attempt");
+          console.log("finished cleaning");
         }
       } else {
         // Incorrect submission
@@ -181,14 +198,13 @@ export default function Home() {
         });
         setTries((tries) => tries + 1);
       }
-    }
-    else{
+    } else {
       saveCurrentAttempt();
     }
   };
 
   const handleKeyboardPress = (key: string) => {
-    console.log("here")
+    console.log("here");
     if (isLetter(key)) {
       fillTile(key);
     }
@@ -203,8 +219,8 @@ export default function Home() {
   };
 
   const formatDate = (date: Date) => {
-    const day = String(date.getUTCDate()).padStart(2, '0');
-    const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+    const day = String(date.getUTCDate()).padStart(2, "0");
+    const month = String(date.getUTCMonth() + 1).padStart(2, "0");
     const year = date.getUTCFullYear();
     return `${month}/${day}/${year}`;
   };
@@ -233,20 +249,29 @@ export default function Home() {
     return () => {
       document.removeEventListener("keydown", handleKeyPress);
     };
-  }, [currentRow, currentWordIndex, wordState, fillTile, clearTile, checkSubmission]);
+  }, [
+    currentRow,
+    currentWordIndex,
+    wordState,
+    fillTile,
+    clearTile,
+    checkSubmission,
+  ]);
 
-  useEffect( () => {
+  useEffect(() => {
     loadSavedAttempt(); // Load saved attempt on component mount
-  }, [loadSavedAttempt])
+  }, [loadSavedAttempt]);
 
   useEffect(() => {
     //Load stats if exist
-    let statsData: string | null = localStorage.getItem('word-association-stats');
+    let statsData: string | null = localStorage.getItem(
+      "word-association-stats",
+    );
     if (statsData) {
       let jsonStats = JSON.parse(statsData);
       const history = jsonStats.history;
       const lastDate = history[history.length - 1]?.date;
-      setShowInstructions(false)
+      setShowInstructions(false);
       setStats({
         ...jsonStats,
         showTutorial: false,
@@ -260,33 +285,31 @@ export default function Home() {
       const today = new Date();
       const timeDifference = today.getTime() - startDate.getTime();
       const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-      setCurrentDay(daysDifference)  
+      setCurrentDay(daysDifference);
     };
     checkTime();
-    
-    const seconds = 60 
+
+    const seconds = 60;
     setInterval(checkTime, seconds * 1000);
-    
   }, [startDate]);
 
   useEffect(() => {
-    //TODO: CURRENTLY ARE LIMITED IT DOES FOLLOW ORDER.
-    //TODO: WILL NEED TO END UP ADDING MORE WORDLISTS.
     setWords(WORDLIST[currentDay % WORDLIST.length]);
   }, [currentDay]);
 
   useEffect(() => {
-    if (words && !localStorage.getItem('word-association-current-attempt')) {
+    if (words && !localStorage.getItem("word-association-current-attempt")) {
+      // if (words) {
       setWordState({
         0: words[0].split(""),
         1: [words[1][0], ...Array(words[1].length - 1).fill("")],
         2: [words[2][0], ...Array(words[2].length - 1).fill("")],
         3: [words[3][0], ...Array(words[3].length - 1).fill("")],
         4: [words[4][0], ...Array(words[4].length - 1).fill("")],
-      })
-      setCorrectState([true, false, false, false, false])
+      });
+      setCorrectState([true, false, false, false, false]);
     }
-  }, [words])
+  }, [words]);
 
   useEffect(() => {
     if (stats.completedToday) {
@@ -296,20 +319,25 @@ export default function Home() {
         2: words[2].split(""),
         3: words[3].split(""),
         4: words[4].split(""),
-      })
-      setCorrectState(new Array(5).fill(true))
-      setShowFinished(true)
+      });
+      setCorrectState(new Array(5).fill(true));
+      setShowFinished(true);
     }
-  }, [stats])
+  }, [stats]);
 
   return (
     <>
-      <main className="grid place-content-center mt-4">
+      <main className="mt-4 grid place-content-center">
         <Navbar />
-        <div className="flex flex-col gap-2 my-8 mx-auto">
-          {Array.from({ length: 5 }, (_, index) =>
-            <TileRow key={index} word={wordState[index]} animate={tileRowControls[index]} correct={correctState[index]} />
-          )}
+        <div className="mx-auto my-8 flex flex-col gap-2">
+          {Array.from({ length: 5 }, (_, index) => (
+            <TileRow
+              key={index}
+              word={wordState[index]}
+              animate={tileRowControls[index]}
+              correct={correctState[index]}
+            />
+          ))}
         </div>
         <Keyboard onKeyPress={handleKeyboardPress} />
         <Footer />
@@ -317,7 +345,11 @@ export default function Home() {
           <Instructions />
         </Modal>
         <Modal isOpen={showFinished} onClose={() => { }} unclosable={true}>
-          <StatsPage todayTries={tries | 0} totalTries={stats.totalTries | 0} totalCompleted={stats.totalCompleted | 0} />
+          <StatsPage
+            todayTries={tries | 0}
+            totalTries={stats.totalTries | 0}
+            totalCompleted={stats.totalCompleted | 0}
+          />
         </Modal>
       </main>
     </>
