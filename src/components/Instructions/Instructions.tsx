@@ -8,7 +8,7 @@ export const Instructions = () => {
             <p className="text-xl font-bold">How To Play</p>
             <ul className="list-disc ml-4 text-sm mt-4">
                 <li className="mt-1">Associate the current word with (only) the previous word.</li>
-                <li className="mt-1">The association could be a <Link className="decoration-sky-500 text-sky-500 underline hover:decoration-sky-600 hover:text-sky-600" target="_blank" href={"https://www.grammarly.com/blog/open-and-closed-compound-words/"}>compound words</Link> (open, hyphenated or closed) or a popular phrase (almond milk).</li>
+                <li className="mt-1">The association could be a <Link className="decoration-sky-500 text-sky-500 underline hover:decoration-sky-600 hover:text-sky-600" target="_blank" href={"https://www.grammarly.com/blog/open-and-closed-compound-words/"}>compound word</Link> (open, hyphenated or closed) or a popular phrase (almond milk).</li>
                 <li className="mt-1">Your attempts will be counted!</li>
             </ul>
             <p className="mt-4 font-bold">Example</p>
@@ -27,7 +27,7 @@ export const Instructions = () => {
                 <TileRow word={["s", "i", "d", "e"]} correct={true} size={"small"} />
             </div>
             <p className="text-sm mt-2">Continue this process until you have completed all words, good luck and have fun!</p>
-            <Footer/>
+            <Footer creds={true}/>
         </>
     )
 }

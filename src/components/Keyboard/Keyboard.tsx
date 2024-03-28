@@ -19,7 +19,7 @@ export const Keyboard: FC<Keyboard> = ({ onKeyPress }) => {
                 <button
                     key={key}
                     onClick={() => onKeyPress("Enter")}
-                    className="h-14 w-[58px] bg-neutral-200 rounded text-xs font-bold"
+                    className="h-14 w-[47px] bg-neutral-200 rounded text-xs font-bold"
                 >
                     {key}
                 </button>
@@ -30,7 +30,7 @@ export const Keyboard: FC<Keyboard> = ({ onKeyPress }) => {
                 <button
                 key={"Backspace"}
                 onClick={() => onKeyPress("Backspace")}
-                className="h-14 w-[57px] bg-neutral-200 rounded font-bold"
+                className="h-14 w-[47px] bg-neutral-200 rounded font-bold"
             >
                 <Image className="m-auto" width={24} height={24} src={"/icons/backspace.svg"} alt="backspace"/>
             </button>
@@ -41,7 +41,7 @@ export const Keyboard: FC<Keyboard> = ({ onKeyPress }) => {
                 <button
                     key={key}
                     onClick={() => onKeyPress(key.toLowerCase())}
-                    className="h-14 w-[2.1rem] bg-neutral-200 rounded font-bold"
+                    className="h-14 w-[1.9rem] bg-neutral-200 rounded font-bold"
                 >
                     {key.toUpperCase()}
                 </button>
@@ -50,9 +50,9 @@ export const Keyboard: FC<Keyboard> = ({ onKeyPress }) => {
     }
 
     return (
-        <div className="grid place-content-center gap-2 m-auto">
+        <div className="grid place-content-center gap-[0.3rem] m-auto">
             {rows.map((row, rowIndex) => (
-                <div key={rowIndex} className={`flex gap-2 ${rowIndex < 2 ? "m-auto" : ""}`}>
+                <div key={rowIndex} className={`flex gap-[0.3rem] ${rowIndex < 2 ? "m-auto" : ""}`}>
                     {row.map((key) => (
                         renderKey(key)
                     ))}

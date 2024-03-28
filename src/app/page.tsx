@@ -67,6 +67,10 @@ export default function Home() {
     setShowInstructions(false);
   };
 
+  const openInstructions = () => {
+    setShowInstructions(true)
+  }
+
   const tileRowControls = [
     useAnimation(),
     useAnimation(),
@@ -106,16 +110,16 @@ export default function Home() {
   };
 
   const loadSavedAttempt = () => {
-    const savedAttempt = localStorage.getItem(
-      "word-association-current-attempt",
-    );
+    const savedAttempt = localStorage.getItem("word-association-current-attempt");
     if (savedAttempt) {
       const parsedAttempt = JSON.parse(savedAttempt);
-      const today = new Date(parsedAttempt.date);
-      const timeDifference = today.getTime() - startDate.getTime();
-      const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-
-      if (daysDifference < 1) {
+      const savedDate = new Date(parsedAttempt.date);
+      const today = new Date();
+      if (
+        savedDate.getUTCFullYear() === today.getUTCFullYear() &&
+        savedDate.getUTCMonth() === today.getUTCMonth() &&
+        savedDate.getUTCDate() === today.getUTCDate()
+      ) {
         setWordState(parsedAttempt.wordState);
         setTries(parsedAttempt.tries);
         setCurrentRow(parsedAttempt.currentRow);
@@ -328,20 +332,24 @@ export default function Home() {
 
   return (
     <>
-      <main className="mt-4 grid place-content-center">
-        <Navbar />
-        <div className="mx-auto my-8 flex flex-col gap-2">
-          {Array.from({ length: 5 }, (_, index) => (
-            <TileRow
-              key={index}
-              word={wordState[index]}
-              animate={tileRowControls[index]}
-              correct={correctState[index]}
-            />
-          ))}
+      <main>
+        <div className="w-screen">
+          <div className="w-11/12 m-auto grid place-content-center">
+            <Navbar openInstructions={openInstructions}/>
+            <div className="mx-auto my-8 flex flex-col gap-2">
+              {Array.from({ length: 5 }, (_, index) => (
+                <TileRow
+                  key={index}
+                  word={wordState[index]}
+                  animate={tileRowControls[index]}
+                  correct={correctState[index]}
+                />
+              ))}
+            </div>
+            <Keyboard onKeyPress={handleKeyboardPress} />
+            <Footer />
+          </div>
         </div>
-        <Keyboard onKeyPress={handleKeyboardPress} />
-        <Footer />
         <Modal isOpen={showInstructions} onClose={closeInstructions}>
           <Instructions />
         </Modal>
