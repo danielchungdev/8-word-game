@@ -6,7 +6,7 @@ import { Navbar } from "@/components/Navbar";
 import { Keyboard } from "@/components/Keyboard";
 import { Modal } from "@/components/Modal";
 import { Instructions } from "@/components/Instructions";
-import { StatsPage } from "@/components/StatsPage";
+import { Congratulations } from "@/components/Congratulations";
 import { Footer } from "@/components/Footer/Footer";
 import { WORDLIST } from "@/utils/wordlist";
 
@@ -353,10 +353,9 @@ export default function Home() {
         <Modal isOpen={showInstructions} onClose={closeInstructions}>
           <Instructions />
         </Modal>
-        <Modal isOpen={showFinished} onClose={() => { }} unclosable={true}>
-          <StatsPage
+        <Modal isOpen={showFinished} unclosable={true} solidBackdrop={true}>
+          <Congratulations
             todayTries={tries | 0}
-            totalTries={stats.totalTries | 0}
             totalCompleted={stats.totalCompleted | 0}
           />
         </Modal>

@@ -9,17 +9,21 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@uidotdev/usehooks": "^2.4.1",
     "@vercel/analytics": "^1.2.2",
     "@vercel/speed-insights": "^1.0.10",
+    "d3": "^7.9.0",
     "framer-motion": "^11.0.20",
     "i": "^0.3.7",
     "next": "14.1.4",
     "npm": "^10.5.0",
     "react": "^18",
+    "react-confetti": "^6.1.0",
     "react-dom": "^18"
   },
   "devDependencies": {
     "@types/node": "^20",
+    "@types/d3": "^7.4.3",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.0.1",

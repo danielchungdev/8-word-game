@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.custom-grid{
+  display: grid;
+  grid-template-columns: 5% 90% 5%;
+}
 
 body{
   @apply bg-neutral-100 text-neutral-900;
