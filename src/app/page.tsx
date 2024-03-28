@@ -347,7 +347,7 @@ export default function Home() {
               ))}
             </div>
             <Keyboard onKeyPress={handleKeyboardPress} />
-            <Footer />
+            {!showFinished && <Footer />}
           </div>
         </div>
         <Modal isOpen={showInstructions} onClose={closeInstructions}>

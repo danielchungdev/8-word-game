@@ -45,6 +45,11 @@ export const StatsPage: FC<StatsPageProps> = ({ todayTries, totalTries, totalCom
         return totalTries / totalCompleted;
     };
 
+    const formatNumber = (number: number) => {
+        let stringNumber = number.toString()
+        return stringNumber.length > 1 ? stringNumber : `0${stringNumber}`
+    }
+
     return (
         <>
             <p className="text-xl font-bold text-green-500 text-center">Congratulations!</p>
@@ -52,8 +57,8 @@ export const StatsPage: FC<StatsPageProps> = ({ todayTries, totalTries, totalCom
                 <p className="mt-4">You&apos;ve completed today&apos;s challenge, you made a total of <b>{todayTries}</b> wrong guesses.</p>
                 <p className="mt-4">You&apos;ve completed a total of <b>{totalCompleted}</b> word associations with an average of <b>{calculateAverage() || 0}</b> wrong guesses per attempt.</p>
             </div>
-            <hr className="h-px my-4 w-48 mx-auto bg-gray-200 border-0" />
-            <p className="text-sm">New Challenge: {timeLeft.hours} hours {timeLeft.minutes} minutes {timeLeft.seconds} seconds</p>
+            <hr className="h-px my-4 w-48 mx-auto bg-gray-200 border-0"/>
+            <p className="text-sm">Next Challenge in: {timeLeft.hours}:{formatNumber(timeLeft.minutes)}:{formatNumber(timeLeft.seconds)}</p>
             <Footer />
         </>
     );
