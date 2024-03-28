@@ -330,6 +330,10 @@ export default function Home() {
     }
   }, [stats]);
 
+  const closeFinished = () => {
+    setShowFinished(false)
+  }
+
   return (
     <>
       <main>
@@ -353,7 +357,7 @@ export default function Home() {
         <Modal isOpen={showInstructions} onClose={closeInstructions}>
           <Instructions />
         </Modal>
-        <Modal isOpen={showFinished} unclosable={true} solidBackdrop={true}>
+        <Modal isOpen={showFinished} onClose={closeFinished} solidBackdrop={true}>
           <Congratulations
             todayTries={tries | 0}
             totalCompleted={stats.totalCompleted | 0}

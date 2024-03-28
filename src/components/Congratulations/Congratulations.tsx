@@ -89,7 +89,7 @@ export const Congratulations: FC<CongratulationsProps> = ({ todayTries, totalCom
             <div className="text-sm ">
                 <p className="mt-4">You&apos;ve completed today&apos;s challenge, you made a total of <b>{todayTries}</b> wrong guesses.</p>
                 <p className="mt-2">You have <b>{calculateStreak(history)}</b> {calculateStreak(history) > 1 ? "days" : "day"} in a row and a total of <b>{totalCompleted}</b> word associations completed!</p>
-                <p className="mt-2">These are your statistics by amount of tries:</p>
+                <p className="mt-2">These are your statistics by tries:</p>
                 <div className="mt-2">
                     {formattedSize.width && <Stats data={history} screenHeight={formattedSize.height} screenWidth={formattedSize.width} />}
                 </div>
