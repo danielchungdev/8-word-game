@@ -9,5 +9,10 @@ export const WORDLIST = [
     ["in", "side", "out", "door", "way"],
     ["out", "side", "walk", "way", "point"],
     ["home", "land", "scape", "goat", "milk"],
-    
+    ["game", "boy", "friend", "ship", "wreck"],
+    ["fire", "ball", "game", "day", "dream"],
+    ["lap", "dog", "house", "boat", "yard"],
+    ["cat", "fish", "tank", "top", "gun"],
+    ["super", "market", "town", "hall", "pass"],
+    [""]
 ]
