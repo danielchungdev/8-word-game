@@ -9,11 +9,8 @@ import { Instructions } from "@/components/Instructions";
 import { Congratulations } from "@/components/Congratulations";
 import { Footer } from "@/components/Footer/Footer";
 import { WORDLIST } from "@/utils/wordlist";
+import { History } from "@/utils/History.types";
 
-interface History {
-  date: string;
-  tries: number;
-}
 interface Stats {
   totalTries: number;
   totalCompleted: number;

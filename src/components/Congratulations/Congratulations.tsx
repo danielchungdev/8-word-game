@@ -2,15 +2,11 @@ import { FC, useState, useEffect, useMemo } from "react";
 import { Footer } from "@/components/Footer";
 import { Stats } from "@/components/Stats";
 import { useWindowSize } from '@uidotdev/usehooks';
+import { History } from "@/utils/History.types";
 
 interface CongratulationsProps {
     todayTries: number;
     totalCompleted: number;
-}
-
-interface History {
-    date: string;
-    tries: number;
 }
 
 export const Congratulations: FC<CongratulationsProps> = ({ todayTries, totalCompleted }) => {
