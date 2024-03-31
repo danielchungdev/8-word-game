@@ -17,6 +17,7 @@ interface Stats {
   history: History[];
   showTutorial: boolean;
   completedToday: boolean;
+  lastTries: number;
 }
 
 //TODO: Move code logic to separate hooks to shrink this file down.
@@ -47,6 +48,7 @@ export default function Home() {
     history: [],
     showTutorial: true,
     completedToday: false,
+    lastTries: 0
   });
   const [showInstructions, setShowInstructions] = useState<boolean>(
     stats.showTutorial,
@@ -183,6 +185,7 @@ export default function Home() {
             history: newHistory,
             showTutorial: false,
             completedToday: true,
+            lastTries: tries
           };
           localStorage.setItem(
             "word-association-stats",
@@ -356,7 +359,7 @@ export default function Home() {
         </Modal>
         <Modal isOpen={showFinished} onClose={closeFinished} solidBackdrop={true}>
           <Congratulations
-            todayTries={tries | 0}
+            todayTries={stats.lastTries | 0}
             totalCompleted={stats.totalCompleted | 0}
           />
         </Modal>
