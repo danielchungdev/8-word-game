@@ -14,5 +14,4 @@ export const WORDLIST = [
     ["lap", "dog", "house", "boat", "yard"],
     ["cat", "fish", "tank", "top", "gun"],
     ["super", "market", "town", "hall", "pass"],
-    [""]
 ]

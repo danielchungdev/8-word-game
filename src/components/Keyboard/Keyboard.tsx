@@ -13,15 +13,13 @@ export const Keyboard: FC<Keyboard> = ({ onKeyPress }) => {
         ["ENTER", "z", "x", "c", "v", "b", "n", "m", "<"],
     ];
 
-    const specialButtonsWidth = "w-13"
-
     const renderKey = (key: string) => {
         if (key === "ENTER") {
             return (
                 <button
                     key={key}
                     onClick={() => onKeyPress("Enter")}
-                    className={`h-14 w-[47px] ${specialButtonsWidth} bg-neutral-200 rounded text-xs font-bold`}
+                    className={`h-14 w-[49px] xs:w-14 bg-neutral-200 rounded text-xs font-bold`}
                 >
                     {key}
                 </button>
@@ -32,7 +30,7 @@ export const Keyboard: FC<Keyboard> = ({ onKeyPress }) => {
                 <button
                     key={"Backspace"}
                     onClick={() => onKeyPress("Backspace")}
-                    className={`h-14 w-[47px] ${specialButtonsWidth} bg-neutral-200 rounded font-bold`}
+                    className={`h-14 w-[49px] xs:w-14 bg-neutral-200 rounded font-bold`}
                 >
                     <Image className="m-auto" width={24} height={24} src={"/icons/backspace.svg"} alt="backspace" />
                 </button>

@@ -7,6 +7,10 @@
   grid-template-columns: 5% 90% 5%;
 }
 
+*{
+  @apply bg-neutral-100;
+}
+
 body{
   @apply bg-neutral-100 text-neutral-900;
 }
