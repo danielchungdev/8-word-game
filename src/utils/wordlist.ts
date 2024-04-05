@@ -14,4 +14,9 @@ export const WORDLIST = [
     ["lap", "dog", "house", "boat", "yard"],
     ["cat", "fish", "tank", "top", "gun"],
     ["super", "market", "town", "hall", "pass"],
+    ["light", "saber", "tooth", "pick", "up"],
+    ["spider", "man", "down", "play", "ground"],
+    ["rain", "fall", "down", "time", "off"],
+    ["blue", "sky", "dive", "deep", "end"],
+    ["snow", "white", "board", "walk", "way "]
 ]
